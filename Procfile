@@ -1,0 +1,1 @@
+web: python currency_collector_server.py --port $PORT
