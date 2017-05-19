@@ -2,7 +2,7 @@ from flask import Flask
 import flask
 import requests
 import argparse
-from tinydb import TinyDB, Query
+from tinydb import TinyDB
 import threading
 import time
 import json
@@ -14,6 +14,7 @@ def update_db():
     while True:
         db.insert(requests.get("http://www.apilayer.net/api/live?access_key=8f29723d2a727648269ba96a05b54dff").json())
         time.sleep(3600)
+
 
 class JsonResponse:
     json_content_type = "application/json"
