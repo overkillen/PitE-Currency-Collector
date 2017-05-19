@@ -52,6 +52,6 @@ if __name__ == '__main__':
     argparser = argparse.ArgumentParser(description='Runs currency collector')
     argparser.add_argument('--port', dest='port', default=5000)
     args = argparser.parse_args()
-    thread.start_new_thread()
+    thread.start_new_thread(update_db())
     server = RestServer()
     server.run_server(args.port)
