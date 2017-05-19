@@ -1,8 +1,20 @@
 from flask import Flask
-from flask import request
 import flask
-import json
+import requests
 import argparse
+from tinydb import TinyDB, Query
+import thread
+import time
+
+db = TinyDB('currency_base.json')
+
+
+def update_db():
+    while True:
+        time.sleep(10)
+        db.insert(requests.get("http://api.fixer.io/2016-03-03").json())
+        db.insert(requests.get("http://api.fixer.io/2016-03-03").json())
+        db.insert(requests.get("http://api.fixer.io/2016-03-03").json())
 
 
 class JsonResponse:
@@ -20,14 +32,16 @@ class JsonResponse:
 class RestServer:
     app = Flask("Currency Collector Server")
 
-    @staticmethod
-    def generate_response_for_the_same_currencies(currency):
-        return JsonResponse(json.dumps({currency:1})).prepare_response()
 
     @staticmethod
     @app.route("/")
     def index():
         return "Currency Collector Server"
+
+    @staticmethod
+    @app.route("/dump")
+    def dump():
+        return JsonResponse(db.all()).prepare_response()
 
     @staticmethod
     def run_server(port_to_listen):
@@ -38,6 +52,6 @@ if __name__ == '__main__':
     argparser = argparse.ArgumentParser(description='Runs currency collector')
     argparser.add_argument('--port', dest='port', default=5000)
     args = argparser.parse_args()
-
+    thread.start_new_thread()
     server = RestServer()
     server.run_server(args.port)
