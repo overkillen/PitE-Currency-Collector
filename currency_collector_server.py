@@ -17,6 +17,7 @@ dropbox_client = dropbox_stuff.DBClient()
 def update_db():
     while True:
         db.insert(requests.get("http://www.apilayer.net/api/live?access_key=8f29723d2a727648269ba96a05b54dff").json())
+        dropbox_client.upload_file(json.dumps(db.all()))
         time.sleep(3600)
 
 
