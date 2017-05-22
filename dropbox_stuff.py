@@ -15,7 +15,7 @@ class DBClient:
             self.token = token
 
     def upload_file(self, content, filename='/currency_dump.json'):
-        self.client.files_upload(content.encode("utf-8"), filename)
+        self.client.files_upload(content.encode("utf-8"), filename, mode=dropbox.files.WriteMode.overwrite)
         return True
 
     def download_file(self, filename='/currency_dump.json'):
