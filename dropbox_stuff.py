@@ -3,7 +3,7 @@ import json
 import dropbox
 
 
-class DBclient:
+class DBClient:
     token = '4F7nibHK-YAAAAAAAAAABqk5WWYBQYAdXBDkTdg4LImkLa0GE3IQ0b7iyVcKPdT3'
 
     @property
