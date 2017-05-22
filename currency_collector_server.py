@@ -54,5 +54,9 @@ if __name__ == '__main__':
     updater = threading.Thread(target=update_db)
     updater.daemon = True
     updater.start()
+    with open('currency_dump.json') as dump:
+        out = json.loads(dump.read())
+        for record in out:
+            db.insert(record)
     server = RestServer()
     server.run_server(args.port)
