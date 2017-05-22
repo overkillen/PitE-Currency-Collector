@@ -51,12 +51,12 @@ if __name__ == '__main__':
     argparser = argparse.ArgumentParser(description='Runs currency collector')
     argparser.add_argument('--port', dest='port', default=5000)
     args = argparser.parse_args()
-    updater = threading.Thread(target=update_db)
-    updater.daemon = True
-    updater.start()
     with open('currency_dump.json') as dump:
         out = json.loads(dump.read())
         for record in out:
             db.insert(record)
+    updater = threading.Thread(target=update_db)
+    updater.daemon = True
+    updater.start()
     server = RestServer()
     server.run_server(args.port)
